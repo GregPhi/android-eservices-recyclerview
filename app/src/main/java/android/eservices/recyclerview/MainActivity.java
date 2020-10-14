@@ -1,5 +1,6 @@
 package android.eservices.recyclerview;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements GameActionInterfa
     private Toolbar toolbar;
     private CoordinatorLayout coordinatorLayout;
     private GameAdapter adapter;
+    private Resources res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements GameActionInterfa
         coordinatorLayout = findViewById(R.id.coordinator_layout);
         setupRecyclerView();
 
-
+        this.res = getResources();
     }
 
     private void setupRecyclerView() {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements GameActionInterfa
         List<GameViewModel> gameViewModels = DataGenerator.generateData();
         for(GameViewModel g : gameViewModels){
             if(gameTitle.equals(g.getTitle())){
-                displaySnackBar("Jeu : "+g.getDescription());
+                displaySnackBar(String.format(this.res.getString(R.string.game_info_clicked), g.getTitle()));
             }
         }
     }
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements GameActionInterfa
         List<GameViewModel> gameViewModels = DataGenerator.generateData();
         for(GameViewModel g : gameViewModels){
             if(gameTitle.equals(g.getTitle())){
-                displaySnackBar(g.getDescription()+" si ma mémoire est bonne");
+                displaySnackBar(String.format(this.res.getString(R.string.game_clicked), g.getTitle()));
             }
         }
     }
